@@ -25,7 +25,7 @@ jobs:
       run: npm install
     - name: Build pro(编译)
       run: |
-        npm run build
+        npm run build:prod
     - name: Setup ossutil(安装阿里云oss)
       uses: manyuanrong/setup-ossutil@v1.0
       with:
