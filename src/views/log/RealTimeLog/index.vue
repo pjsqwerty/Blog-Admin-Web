@@ -25,7 +25,7 @@
 
         if (stompClient == null) {
           this.res = "连接成功,正在等在";
-          var socket = new SockJS('http://127.0.0.1:8080/websocket');
+          var socket = new SockJS('http://129.204.61.249:8080/websocket');
           stompClient = Stomp.over(socket);
           stompClient.connect({token: "kl"}, function (frame) {
             stompClient.subscribe('/topic/pullLogger', function (event) {

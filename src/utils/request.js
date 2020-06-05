@@ -6,10 +6,12 @@ import config from '@/config'
 import router from '@/router'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
+//129.204.61.249
+axios.defaults.baseURL = 'http://http://129.204.61.249:8888'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  baseURL: process.env.VUE_APP_BASE_API,
+  //baseURL: process.env.VUE_APP_BASE_API,
   // 超时
   timeout: config.timeout
 });
