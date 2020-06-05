@@ -1,0 +1,41 @@
+name: oss
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    name: A WEB JOB（OSS）
+    steps:
+    - name: Checout(获取源码)
+      uses: actions/checkout@v1
+    - name: Setup node(安装node环境)
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"
+    - name: Cache node modules(缓存)
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{runner.OS}}-npm-caches-${{ hashFiles('pachage-lock.json') }} # Linux-npm-caches-e87d4692eafbc98fd7477e38aa502a6b39f20ffda3ab5bad51171838ca791f3c
+    - name: Install Dep(安装依赖)
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm install
+    - name: Build pro(编译)
+      run: |
+        npm run build
+    - name: Setup ossutil(安装阿里云oss)
+      uses: manyuanrong/setup-ossutil@v1.0
+      with:
+        endpoint: "oss-cn-beijing.aliyuncs.com"
+        access-key-id: ${{ secrets.OSS_ACCESSKEY_ID }}
+        access-key-secret: ${{ secrets.OSS_ACCESSKEY_SECRET }}
+    - name: Upload aliyun oss(上传项目到oss)
+      env:
+        BUCKET: blog-admin-web
+      run: |
+        ossutil rm oss://$BUCKET/static/ -rf
+        ossutil cp dist oss://$BUCKET/ -rf
+
