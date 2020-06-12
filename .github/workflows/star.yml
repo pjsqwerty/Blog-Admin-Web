@@ -31,9 +31,9 @@ jobs:
         HOST: 129.204.61.249
         USER: root
       run: |
-	      sshpass -p ${{ secrets.ACTIONS_DEPLOY_KEY }} ssh  -o StrictHostKeyChecking=no  $USER@$HOST  << EOF
+	sshpass -p ${{ secrets.ACTIONS_DEPLOY_KEY }} ssh  -o StrictHostKeyChecking=no  $USER@$HOST  << EOF
         cd /usr/local/web/blog/
-	      rm -rf static/ index.html
+	rm -rf static/ index.html
         cp dist ./
         exit
         EOF
