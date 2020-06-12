@@ -7,18 +7,20 @@ import router from '@/router'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 //129.204.61.249
-axios.defaults.baseURL = 'http://129.204.61.249:8888'
+//axios.defaults.baseURL = 'http://127.0.0.1:8888'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  //baseURL: process.env.VUE_APP_BASE_API,
-  //baseURL: "http://129.204.61.249:8888",
+  baseURL: process.env.VUE_APP_BASE_API,
+  //baseURL: "http://127.0.0.1:8888/dev-api",
   // 超时
   timeout: config.timeout
 });
 // request拦截器
-axios.interceptors.request.use(
+service.interceptors.request.use(
   config => {
+    console.info(config)
+    console.info(getToken())
     if (getToken()) {
       config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     }
@@ -31,7 +33,7 @@ axios.interceptors.request.use(
 );
 
 // 响应拦截器
-axios.interceptors.response.use(response => {
+service.interceptors.response.use(response => {
     const code = response.data.code;
     if (code < 200 || code > 300) {
       Notification.error({
