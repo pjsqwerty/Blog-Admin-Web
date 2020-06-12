@@ -26,16 +26,15 @@ jobs:
     - name: Build pro(编译)
       run: |
         npm run build:prod
-    - name: Setup ossutil(安装阿里云oss)
-      uses: manyuanrong/setup-ossutil@v1.0
-      with:
-        endpoint: "oss-cn-beijing.aliyuncs.com"
-        access-key-id: ${{ secrets.OSS_ACCESSKEY_ID }}
-        access-key-secret: ${{ secrets.OSS_ACCESSKEY_SECRET }}
-    - name: Upload aliyun oss(上传项目到oss)
+    - name: Upload aliyun oss(上传项目到腾讯云服务器)
       env:
-        BUCKET: blog-admin-web
+        HOST: 129.204.61.249
+        USER: root
       run: |
-        ossutil rm oss://$BUCKET/static/ -rf
-        ossutil cp dist oss://$BUCKET/ -rf
+	      sshpass -p ${{ secrets.ACTIONS_DEPLOY_KEY }} ssh  -o StrictHostKeyChecking=no  $USER@$HOST  << EOF
+        cd /usr/local/web/blog/
+	      rm -rf static/ index.html
+        cp dist ./
+        exit
+        EOF
 
