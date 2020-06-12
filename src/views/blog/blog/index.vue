@@ -41,10 +41,10 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <router-link to="blog/add" class="link-type">
-          <el-button type="primary" icon="el-icon-plus" size="mini">新增
+        <!--<router-link to="blog/add" class="link-type">-->
+          <el-button type="primary" icon="el-icon-plus" size="mini"  @click="goAdd">新增
           </el-button>
-        </router-link>
+        <!--</router-link>-->
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -238,6 +238,9 @@
         this.modelName = '博客';
         return true
       },
+        goAdd(){
+            this.$router.push({path: "/blogManage/blog/add"});
+        },
       // 博客状态修改
       handleCommentChange(row) {
         let text = row.comment ? "开启评论" : "关闭评论";

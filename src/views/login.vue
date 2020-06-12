@@ -41,8 +41,9 @@
 </template>
 
 <script>
-  import {getCodeImg} from "@/api/login";
+  import {getCodeImg,login} from "@/api/login";
   import Cookies from "js-cookie";
+  import {getToken, setToken, removeToken} from '@/utils/auth'
   import {encrypt, decrypt} from '@/utils/jsencrypt'
 
   export default {
@@ -113,13 +114,35 @@
               Cookies.remove("password");
               Cookies.remove('rememberMe');
             }
+
+            //获取用户信息
+              const username = this.loginForm.username.trim();
+              const password = this.loginForm.password;
+              const code = this.loginForm.code;
+              const uuid = this.loginForm.uuid;
+            /*  login(username,password,code,uuid).then(res => {
+                  console.info(res)
+                  if(res && res.token){
+                      setToken(res.token);
+
+                      this.$router.push({path: "index"});
+                  }
+              }).catch((error) => {
+                  this.getCode();
+                  this.loading = false;
+              })*/
+            var that = this
             this.$store
               .dispatch("Login", this.loginForm)
-              .then(() => {
+              .then((res) => {
                 //this.$router.push({path: this.redirect || "/"});
-                  this.$router.push({path: "index"});
+                  if(res && res.token){
+                      that.$router.push({path: "index"});
+                  }
+                 //
               })
-              .catch(() => {
+              .catch((error) => {
+                  console.info(error)
                 this.getCode();
                 this.loading = false;
               });

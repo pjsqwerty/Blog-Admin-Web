@@ -49,6 +49,10 @@ module.exports = {
    */
   caseNumber: '蜀ICP备 19004343',
   /**
+   * api地址
+   */
+  apiUrl: 'http://129.204.61.249:8888',
+  /**
    * 底部文字，支持html语法
    */
   footerTxt: '© 2019 Dimple <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License 2.0</a>',
