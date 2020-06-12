@@ -33,11 +33,12 @@ module.exports = {
     port: port,
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
-      [process.env.VUE_APP_BASE_API]: {
+     '/dev-api': {
         target: 'http://129.204.61.249:8888',
         changeOrigin: true,
+        secure: false,  // 如果是https接口，需要配置这个参数
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
+         '^/dev-api': ''
         }
       }
     },
