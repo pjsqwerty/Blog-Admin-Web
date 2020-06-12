@@ -34,7 +34,7 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:8888`,
+        target: 'http://129.204.61.249:8888',
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
@@ -85,7 +85,7 @@ module.exports = {
       .end();
 
     config
-      // https://webpack.js.org/configuration/devtool/#development
+    // https://webpack.js.org/configuration/devtool/#development
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
       );
