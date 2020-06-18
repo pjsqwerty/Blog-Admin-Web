@@ -166,7 +166,7 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="text" size="mini" icon="el-icon-edit">
-            <router-link :to="'blog/edit/'+scope.row.id">编辑</router-link>
+            <router-link :to="'/blogManage/blog/edit/'+scope.row.id">编辑</router-link>
           </el-button>
           <el-popover :ref="scope.row.id" placement="top" width="180">
             <p>确定删除本条数据吗？</p>
